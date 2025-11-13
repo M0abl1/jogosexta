@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://xglyfkoqg2ou"]
+
+[ext_resource type="Script" uid="uid://cjy8dg6mewkky" path="res://soldado.gd" id="1_klq5n"]
+[ext_resource type="Texture2D" uid="uid://l4j0fjf215jt" path="res://assets/inimigos/soldado andando-Photoroom.png" id="2_8pes2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iaahx"]
+atlas = ExtResource("2_8pes2")
+region = Rect2(0, 0, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwn1i"]
+atlas = ExtResource("2_8pes2")
+region = Rect2(341, 0, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4oy2b"]
+atlas = ExtResource("2_8pes2")
+region = Rect2(682, 0, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4vup"]
+atlas = ExtResource("2_8pes2")
+region = Rect2(0, 682, 341, 341)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0tcue"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iaahx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwn1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4oy2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4vup")
+}],
+"loop": true,
+"name": &"andar",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d7x0g"]
+radius = 75.0
+height = 348.0
+
+[node name="inimigos" type="Node2D"]
+metadata/_edit_group_ = true
+
+[node name="soldado" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_klq5n")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="soldado"]
+sprite_frames = SubResource("SpriteFrames_0tcue")
+animation = &"andar"
+autoplay = "andar"
+frame_progress = 0.28266934
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="soldado"]
+position = Vector2(-1, 12)
+shape = SubResource("CapsuleShape2D_d7x0g")
+
+[node name="detector_parede" type="RayCast2D" parent="soldado"]
+exclude_parent = false
+target_position = Vector2(16, 50)
+
+[node name="detector_abismo" type="RayCast2D" parent="soldado"]
+exclude_parent = false
+target_position = Vector2(16, 20)

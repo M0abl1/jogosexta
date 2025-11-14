@@ -71,7 +71,12 @@ height = 296.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klq5n"]
 size = Vector2(146, 289)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8pes2"]
+size = Vector2(44.7993, 82.1753)
+
 [node name="inimigos" type="Node2D"]
+position = Vector2(0, -56)
+scale = Vector2(0.326661, 0.346298)
 metadata/_edit_group_ = true
 
 [node name="soldado" type="CharacterBody2D" parent="." groups=["inimigos"]]
@@ -80,7 +85,7 @@ collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_klq5n")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="soldado"]
+[node name="Sprite" type="AnimatedSprite2D" parent="soldado"]
 sprite_frames = SubResource("SpriteFrames_0tcue")
 animation = &"morrendo"
 autoplay = "andar"
@@ -106,3 +111,10 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="soldado/Hurtbox"]
 position = Vector2(-1, 11.5)
 shape = SubResource("RectangleShape2D_klq5n")
+
+[node name="HitboxDano" type="Area2D" parent="soldado"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="soldado/HitboxDano"]
+position = Vector2(1.53063, 14.4384)
+scale = Vector2(3.34832, 3.65462)
+shape = SubResource("RectangleShape2D_8pes2")

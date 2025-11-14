@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5nl8qhpdnjn8"]
+[gd_scene load_steps=12 format=3 uid="uid://b5nl8qhpdnjn8"]
 
+[ext_resource type="Script" uid="uid://fhk3w0yjmyn8" path="res://demofloresta.gd" id="1_euhhy"]
 [ext_resource type="Texture2D" uid="uid://dtry2efxjaal2" path="res://assets/cenario/cenario2d.png" id="1_r176x"]
 [ext_resource type="Texture2D" uid="uid://bifdgnfwt2ard" path="res://assets/cenario/cenario2d2.png" id="2_le635"]
 [ext_resource type="PackedScene" uid="uid://t0jodcsay6t8" path="res://personagem.tscn" id="3_b676b"]
@@ -877,7 +878,11 @@ physics_layer_0/physics_material = SubResource("PhysicsMaterial_b676b")
 sources/0 = SubResource("TileSetAtlasSource_le635")
 sources/1 = SubResource("TileSetAtlasSource_b676b")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_euhhy"]
+size = Vector2(2421, 20)
+
 [node name="Demofloresta" type="Node2D"]
+script = ExtResource("1_euhhy")
 
 [node name="TileMap" type="TileMap" parent="."]
 rotation = 0.00349059
@@ -906,3 +911,11 @@ offset_top = -400.0
 offset_right = 1601.0
 offset_bottom = 611.0
 texture = ExtResource("5_5rnve")
+
+[node name="ZonaDeMorte" type="Area2D" parent="." groups=["inimigos"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonaDeMorte"]
+position = Vector2(1587, 407)
+shape = SubResource("RectangleShape2D_euhhy")
+
+[connection signal="body_entered" from="ZonaDeMorte" to="." method="_on_zona_de_morte_body_entered"]

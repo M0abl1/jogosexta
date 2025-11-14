@@ -1,24 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://t0jodcsay6t8"]
+[gd_scene load_steps=13 format=3 uid="uid://t0jodcsay6t8"]
 
 [ext_resource type="Script" uid="uid://6nh585es5i3t" path="res://curumin.gd" id="1_k0c8s"]
 [ext_resource type="Texture2D" uid="uid://ngtaujgynmd1" path="res://assets/personagem/curumin-removebg-preview.png" id="2_s3elh"]
 [ext_resource type="Texture2D" uid="uid://ckj0gd401xj77" path="res://assets/personagem/curumim_atacando-removebg-preview.png" id="3_114o1"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gn376"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk4oa"]
 atlas = ExtResource("2_s3elh")
-region = Rect2(7, 44, 104, 168)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p7k75"]
-atlas = ExtResource("2_s3elh")
-region = Rect2(215, 44, 104, 168)
+region = Rect2(0, 224, 90, 224)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nvt02"]
 atlas = ExtResource("2_s3elh")
 region = Rect2(91, 224, 90, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kk4oa"]
-atlas = ExtResource("2_s3elh")
-region = Rect2(0, 224, 90, 224)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ogp2y"]
 atlas = ExtResource("3_114o1")
@@ -28,12 +20,46 @@ region = Rect2(0, 4, 120, 485)
 atlas = ExtResource("3_114o1")
 region = Rect2(120, 4, 120, 485)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qaj70"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gn376"]
 atlas = ExtResource("2_s3elh")
-region = Rect2(0, 0, 90, 224)
+region = Rect2(7, 44, 104, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7k75"]
+atlas = ExtResource("2_s3elh")
+region = Rect2(215, 44, 104, 168)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_87qvo"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk4oa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvt02")
+}],
+"loop": true,
+"name": &"andando",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogp2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgyiu")
+}],
+"loop": false,
+"name": &"atacando",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk4oa")
+}],
+"loop": false,
+"name": &"parado",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gn376")
@@ -45,43 +71,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_p7k75")
 }],
 "loop": true,
-"name": &"Pulando",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nvt02")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kk4oa")
-}],
-"loop": true,
-"name": &"andando ",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ogp2y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fgyiu")
-}],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qaj70")
-}],
-"loop": false,
-"name": &"parado",
+"name": &"pulando",
 "speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dauys"]
 radius = 23.0
-height = 166.0
+height = 124.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7k68m"]
 size = Vector2(73.5, 43)
@@ -92,23 +88,26 @@ size = Vector2(73.5, 43)
 script = ExtResource("1_k0c8s")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="curumin"]
-position = Vector2(-11, -11)
+position = Vector2(-11, -36)
 scale = Vector2(1.01667, 0.733505)
 sprite_frames = SubResource("SpriteFrames_87qvo")
-animation = &"parado"
-frame_progress = 1.0
+animation = &"atacando"
 
 [node name="colisão" type="CollisionShape2D" parent="curumin"]
-position = Vector2(3, -6)
+position = Vector2(3, -29)
 shape = SubResource("CapsuleShape2D_dauys")
 
 [node name="Camera" type="Camera2D" parent="curumin"]
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 
-[node name="Hitboxataque" type="Area2D" parent="curumin"]
+[node name="Hitboxataque" type="Area2D" parent="curumin" groups=["jogador"]]
+collision_layer = 4
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="curumin/Hitboxataque"]
 process_mode = 4
 position = Vector2(63.25, -32.5)
 shape = SubResource("RectangleShape2D_7k68m")
+
+[connection signal="area_entered" from="curumin/Hitboxataque" to="curumin" method="_on_hitboxataque_area_entered"]

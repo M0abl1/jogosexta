@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://xglyfkoqg2ou"]
+[gd_scene load_steps=10 format=3 uid="uid://xglyfkoqg2ou"]
 
 [ext_resource type="Script" uid="uid://cjy8dg6mewkky" path="res://soldado.gd" id="1_klq5n"]
 [ext_resource type="Texture2D" uid="uid://l4j0fjf215jt" path="res://assets/inimigos/soldado andando-Photoroom.png" id="2_8pes2"]
@@ -46,7 +46,10 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d7x0g"]
 radius = 75.0
-height = 348.0
+height = 296.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_klq5n"]
+size = Vector2(146, 289)
 
 [node name="inimigos" type="Node2D"]
 metadata/_edit_group_ = true
@@ -72,3 +75,11 @@ target_position = Vector2(16, 50)
 [node name="detector_abismo" type="RayCast2D" parent="soldado"]
 exclude_parent = false
 target_position = Vector2(16, 20)
+
+[node name="Hurtbox" type="Area2D" parent="soldado" groups=["inimigos"]]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="soldado/Hurtbox"]
+position = Vector2(-1, 11.5)
+shape = SubResource("RectangleShape2D_klq5n")

@@ -1,16 +1,37 @@
 extends CharacterBody2D
 
-# --- Variáveis ---
+# --- Variáveis de Patrulha ---
 @export var speed = 40.0
-@export var gravity = 1000.0
 
-# 1 para direita, -1 para esquerda
-var direction = -1
+# ✅ CORREÇÃO AQUI: Damos um valor à gravidade
+var gravity = 1000.0
+var direction = -1 # Começa andando para a esquerda
 
-@onready var sprite = $AnimatedSprite2D # Mude para $Sprite2D se for o caso
+# --- Variáveis de Combate ---
+var vida: int = 3 # O inimigo tem 3 pontos de vida
+
+# --- Referências de Nós ---
+@onready var sprite = $AnimatedSprite2D # Mude se o nome do seu sprite for outro
 @onready var detector_parede = $detector_parede
 @onready var detector_abismo = $detector_abismo
 
+
+# --- Funções de Combate ---
+
+# Chamada pelo "Hurtbox" do inimigo quando for atingido
+func levar_dano(dano: int):
+	vida -= dano
+	print("Inimigo tomou dano! Vida restante: ", vida)
+	
+	if vida <= 0:
+		morrer()
+
+func morrer():
+	print("Inimigo derrotado!")
+	queue_free() # Remove o inimigo da cena
+
+
+# --- Lógica de Física (Patrulha) ---
 
 func _physics_process(delta):
 	# 1. Aplicar Gravidade
@@ -22,11 +43,12 @@ func _physics_process(delta):
 	# Ajusta os sensores e o sprite para a direção atual
 	if direction == 1: # Indo para a direita
 		sprite.flip_h = false
-		detector_parede.target_position.x = 16  # Mude 16 para a borda do seu sprite
+		# ✅ CORREÇÃO AQUI: Removido o caractere fantasma
+		detector_parede.target_position.x = 16
 		detector_abismo.position.x = 16
 	else: # Indo para a esquerda
 		sprite.flip_h = true
-		detector_parede.target_position.x = -16 # Mude -16 para a borda do seu sprite
+		detector_parede.target_position.x = -16
 		detector_abismo.position.x = -16
 
 	# 3. Checar Sensores e Mudar Direção
@@ -35,7 +57,6 @@ func _physics_process(delta):
 		direction *= -1 # Inverte a direção
 
 	# 4. Definir Velocidade Horizontal
-	# Usa a direção (que pode ter acabado de ser invertida)
 	velocity.x = speed * direction
 
 	# 5. Mover o Inimigo

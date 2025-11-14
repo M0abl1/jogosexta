@@ -54,7 +54,7 @@ size = Vector2(146, 289)
 size = Vector2(44.7993, 82.1753)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pwn1i"]
-size = Vector2(137.757, 15.7754)
+size = Vector2(177.554, 308.207)
 
 [node name="inimigos" type="Node2D"]
 position = Vector2(1, -4)
@@ -71,7 +71,7 @@ sprite_frames = SubResource("SpriteFrames_0tcue")
 animation = &"andar"
 autoplay = "andar"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="soldado"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="soldado" groups=["inimigos"]]
 position = Vector2(1.98468, 11.5508)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_iaahx")
@@ -94,7 +94,7 @@ position = Vector2(1.53063, 14.4384)
 scale = Vector2(3.34832, 3.65462)
 shape = SubResource("RectangleShape2D_8pes2")
 
-[node name="hitboxpulodano" type="CollisionShape2D" parent="soldado"]
-position = Vector2(1.53064, -135.721)
+[node name="hitboxpulodano" type="CollisionShape2D" parent="soldado" groups=["inimigos"]]
+position = Vector2(-3.06127, 10.4946)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_pwn1i")

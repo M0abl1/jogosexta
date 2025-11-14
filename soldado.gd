@@ -60,7 +60,18 @@ func _physics_process(delta):
 
 	# 5. Mover o Inimigo
 	move_and_slide()
-
+	
+func _on_zona_de_morte_body_entered(body):
+	
+	# Verificamos se o corpo que entrou está no grupo "jogador"
+	# (Lembre-se que definimos este grupo no guia_cena_personagem.md)
+	if body.is_in_group("jogador"):
+		
+		# Se for o jogador, chamamos a função "morrer()"
+		# que já existe no script do Personagem.
+		print("Jogador caiu na Zona de Morte!")
+		body.morrer()
+		
 
 # --- Sinais Conectados (do guia_cena_soldado.md) ---
 

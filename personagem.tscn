@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://t0jodcsay6t8"]
+[gd_scene load_steps=14 format=3 uid="uid://t0jodcsay6t8"]
 
 [ext_resource type="Script" uid="uid://6nh585es5i3t" path="res://curumin.gd" id="1_k0c8s"]
 [ext_resource type="Texture2D" uid="uid://ngtaujgynmd1" path="res://assets/personagem/curumin-removebg-preview.png" id="2_s3elh"]
@@ -12,13 +12,17 @@ region = Rect2(0, 224, 90, 224)
 atlas = ExtResource("2_s3elh")
 region = Rect2(91, 224, 90, 224)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ogp2y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3elh"]
 atlas = ExtResource("3_114o1")
-region = Rect2(0, 4, 120, 485)
+region = Rect2(17, 142, 95, 209)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fgyiu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_114o1"]
 atlas = ExtResource("3_114o1")
-region = Rect2(120, 4, 120, 485)
+region = Rect2(123, 138, 120, 217)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0c8s"]
+atlas = ExtResource("2_s3elh")
+region = Rect2(7, 22, 89, 188)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gn376"]
 atlas = ExtResource("2_s3elh")
@@ -43,10 +47,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ogp2y")
+"texture": SubResource("AtlasTexture_s3elh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fgyiu")
+"texture": SubResource("AtlasTexture_114o1")
 }],
 "loop": false,
 "name": &"atacando",
@@ -54,7 +58,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kk4oa")
+"texture": SubResource("AtlasTexture_k0c8s")
 }],
 "loop": false,
 "name": &"parado",
@@ -75,39 +79,47 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dauys"]
-radius = 23.0
-height = 124.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0c8s"]
+size = Vector2(37, 103)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7k68m"]
 size = Vector2(79.75, 129)
 
 [node name="personagem" type="Node2D"]
+position = Vector2(-39, -55)
 
 [node name="curumin" type="CharacterBody2D" parent="." groups=["jogador"]]
 script = ExtResource("1_k0c8s")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="curumin"]
-position = Vector2(-6, -38.2258)
-scale = Vector2(0.800002, 0.569413)
+position = Vector2(15, -14)
+scale = Vector2(0.497222, 0.420821)
 sprite_frames = SubResource("SpriteFrames_87qvo")
-animation = &"parado"
+animation = &"andando"
+centered = false
 
 [node name="colisão" type="CollisionShape2D" parent="curumin"]
-position = Vector2(2, -56)
-shape = SubResource("CapsuleShape2D_dauys")
+position = Vector2(42, 17)
+shape = SubResource("RectangleShape2D_k0c8s")
 
 [node name="Camera" type="Camera2D" parent="curumin"]
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 
 [node name="Hitboxataque" type="Area2D" parent="curumin" groups=["jogador"]]
+position = Vector2(-8, -4)
 collision_layer = 4
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="curumin/Hitboxataque"]
 process_mode = 4
-position = Vector2(65.125, -68.5)
+position = Vector2(108, 27)
+shape = SubResource("RectangleShape2D_7k68m")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="curumin/Hitboxataque"]
+process_mode = 4
+position = Vector2(-6, 29)
 shape = SubResource("RectangleShape2D_7k68m")
 
 [connection signal="area_entered" from="curumin/Hitboxataque" to="curumin" method="_on_hitboxataque_area_entered"]

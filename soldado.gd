@@ -1,26 +1,24 @@
 extends CharacterBody2D
 
 # --- Variáveis de Patrulha ---
-@export var speed = 40.0
-var gravity = 1000.0 # Define a gravidade para o inimigo
-var direction = -1     # Começa andando para a esquerda
+@export var speed = 100.0
+
+# var gravity = 400 # ✅ REMOVIDO
+var direction = -1      # Começa andando para a direita
 
 # --- Variáveis de Combate ---
-var vida: int = 3 # O inimigo tem 3 pontos de vida
+var vida: int = 1 # O inimigo tem 3 pontos de vida
 
 # --- Referências de Nós ---
 @onready var sprite: AnimatedSprite2D = $Sprite
-@onready var detector_parede: RayCast2D = $detector_parede
-@onready var detector_abismo: RayCast2D = $detector_abismo
+#@onready var detector_parede: RayCast2D = $detector_parede
+# @onready var detector_abismo: RayCast2D = $detector_abismo # ✅ REMOVIDO (Não faz sentido sem gravidade)
 
 
 # --- Funções de Combate ---
-
-# Chamada pela "Hurtbox" do inimigo quando for atingido
 func levar_dano(dano: int):
 	vida -= dano
 	print("Inimigo tomou dano! Vida restante: ", vida)
-	
 	if vida <= 0:
 		morrer()
 
@@ -30,28 +28,32 @@ func morrer():
 
 
 # --- Lógica de Física (Patrulha) ---
-
 func _physics_process(delta):
-	# 1. Aplicar Gravidade
-	if not is_on_floor():
-		velocity.y += gravity * delta
-
-	# 2. Lógica para Virar (Checar *antes* de mover)
 	
-	# Ajusta os sensores e o sprite para a direção atual
+	# Verificação de segurança
+	# if sprite == null or detector_parede == null:
+		#print("ERRO: Um dos nós (Sprite ou detector_parede) não foi encontrado. Verifique os nomes na cena!")
+		# return
+	
+	# 1. Aplicar Gravidade
+	# ✅ REMOVIDO
+	# if not is_on_floor():
+	# 	velocity.y += gravity * delta
+	
+	# ✅ NOVO: Garantir que a velocidade Y seja 0 (para não flutuar para cima/baixo)
+
+	# 2. Lógica para Virar (Ajuste de Sprite e Sensores)
 	if direction == 1: # Indo para a direita
 		sprite.flip_h = false
-		detector_parede.target_position.x = 16 # Aponta o raio para a direita
-		detector_abismo.position.x = 16        # Move o raio para a borda direita
+	#	detector_parede.target_position.x = 5 # Aponta o raio de parede para a direita
 	else: # Indo para a esquerda
 		sprite.flip_h = true
-		detector_parede.target_position.x = -16 # Aponta o raio para a esquerda
-		detector_abismo.position.x = -16       # Move o raio para a borda esquerda
+	#	detector_parede.target_position.x = 5 # Aponta o raio de parede para a esquerda
 
 	# 3. Checar Sensores e Mudar Direção
-	# Só vira se estiver no chão E (bater na parede OU não achar chão na frente)
-	if is_on_floor() and (detector_parede.is_colliding() or not detector_abismo.is_colliding()):
-		direction *= -1 # Inverte a direção (1 vira -1, -1 vira 1)
+	# ✅ ATUALIZADO: Agora só vira se bater na parede.
+#	if detector_parede.is_colliding():
+#		direction *= -1 # Inverte a direção (1 vira -1, -1 vira 1)
 
 	# 4. Definir Velocidade Horizontal
 	velocity.x = speed * direction
@@ -62,19 +64,10 @@ func _physics_process(delta):
 
 # --- Sinais Conectados (do guia_cena_soldado.md) ---
 
-# Esta função é conectada ao sinal "body_entered" da "HitboxDano"
-# Ela é chamada quando o Soldado TOCA no jogador
 func _on_hitbox_dano_body_entered(body):
-	# Verifica se o corpo que entrou está no grupo "jogador"
 	if body.is_in_group("jogador"):
-		# Chama a função "levar_dano" que existe no script do jogador
 		body.levar_dano(1)
 
-
-# Esta função é conectada ao sinal "area_entered" da "Hurtbox"
-# Ela é chamada quando o Soldado é ATINGIDO pelo ataque do jogador
 func _on_hurtbox_area_entered(area):
-	# Verifica se a área que nos atingiu é a "HitboxAtaque" do jogador
-	# (O nome "HitboxAtaque" deve estar correto na cena do personagem)
 	if area.name == "HitboxAtaque":
-		levar_dano(1) # Chama a função de dano deste próprio script
+		levar_dano(1)

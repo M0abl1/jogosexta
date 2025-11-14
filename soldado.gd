@@ -35,8 +35,8 @@ func morrer():
 
 func _physics_process(delta):
 	# 1. Aplicar Gravidade
-	if not is_on_floor():
-		velocity.y += gravity * delta
+#	if not is_on_floor():
+#		velocity.y += gravity * delta
 
 	# 2. Lógica para Virar (Checar *antes* de mover)
 	

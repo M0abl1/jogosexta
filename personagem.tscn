@@ -102,12 +102,12 @@ position_smoothing_enabled = true
 drag_horizontal_enabled = true
 
 [node name="Hitboxataque" type="Area2D" parent="curumin" groups=["jogador"]]
-collision_layer = 4
-collision_mask = 16
+collision_layer = 5
+collision_mask = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="curumin/Hitboxataque"]
 process_mode = 4
 position = Vector2(63.25, -32.5)
 shape = SubResource("RectangleShape2D_7k68m")
 
-[connection signal="area_entered" from="curumin/Hitboxataque" to="curumin" method="_on_hitboxataque_area_entered"]
+[connection signal="body_entered" from="curumin/Hitboxataque" to="curumin" method="_on_hitbox_ataque_area_entered"]

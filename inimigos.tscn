@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://xglyfkoqg2ou"]
+[gd_scene load_steps=13 format=3 uid="uid://xglyfkoqg2ou"]
 
 [ext_resource type="Script" uid="uid://cjy8dg6mewkky" path="res://soldado.gd" id="1_klq5n"]
 [ext_resource type="Texture2D" uid="uid://l4j0fjf215jt" path="res://assets/inimigos/soldado andando-Photoroom.png" id="2_8pes2"]
+[ext_resource type="Texture2D" uid="uid://da1on20jaquoh" path="res://assets/inimigos/Gemini_Generated_Image_runwz7runwz7runw-Photoroom.png" id="3_8pes2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iaahx"]
 atlas = ExtResource("2_8pes2")
@@ -18,6 +19,14 @@ region = Rect2(682, 0, 341, 341)
 [sub_resource type="AtlasTexture" id="AtlasTexture_p4vup"]
 atlas = ExtResource("2_8pes2")
 region = Rect2(0, 682, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tcue"]
+atlas = ExtResource("3_8pes2")
+region = Rect2(341, 0, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7x0g"]
+atlas = ExtResource("3_8pes2")
+region = Rect2(682, 682, 341, 341)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0tcue"]
 animations = [{
@@ -42,6 +51,17 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tcue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7x0g")
+}],
+"loop": false,
+"name": &"morrendo",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d7x0g"]
@@ -62,9 +82,10 @@ script = ExtResource("1_klq5n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="soldado"]
 sprite_frames = SubResource("SpriteFrames_0tcue")
-animation = &"andar"
+animation = &"morrendo"
 autoplay = "andar"
-frame_progress = 0.282669
+frame = 1
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="soldado"]
 position = Vector2(-1, 12)

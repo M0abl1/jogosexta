@@ -94,7 +94,9 @@ position = Vector2(1.53063, 14.4384)
 scale = Vector2(3.34832, 3.65462)
 shape = SubResource("RectangleShape2D_8pes2")
 
-[node name="hitboxpulodano" type="CollisionShape2D" parent="soldado" groups=["inimigos"]]
+[node name="ZonaDeMorte" type="Area2D" parent="soldado" groups=["inimigos"]]
+
+[node name="hitboxpulodano" type="CollisionShape2D" parent="soldado/ZonaDeMorte" groups=["inimigos"]]
 position = Vector2(-3.06127, 10.4946)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_pwn1i")

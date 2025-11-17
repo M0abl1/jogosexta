@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://xglyfkoqg2ou"]
+[gd_scene load_steps=14 format=3 uid="uid://xglyfkoqg2ou"]
 
 [ext_resource type="Script" uid="uid://cjy8dg6mewkky" path="res://soldado.gd" id="1_klq5n"]
 [ext_resource type="Texture2D" uid="uid://l4j0fjf215jt" path="res://assets/inimigos/soldado andando-Photoroom.png" id="2_8pes2"]
+[ext_resource type="Texture2D" uid="uid://da1on20jaquoh" path="res://assets/inimigos/Gemini_Generated_Image_runwz7runwz7runw-Photoroom.png" id="3_8pes2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iaahx"]
 atlas = ExtResource("2_8pes2")
@@ -18,6 +19,14 @@ region = Rect2(682, 0, 341, 341)
 [sub_resource type="AtlasTexture" id="AtlasTexture_p4vup"]
 atlas = ExtResource("2_8pes2")
 region = Rect2(0, 682, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tcue"]
+atlas = ExtResource("3_8pes2")
+region = Rect2(341, 0, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7x0g"]
+atlas = ExtResource("3_8pes2")
+region = Rect2(682, 682, 341, 341)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0tcue"]
 animations = [{
@@ -42,10 +51,22 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tcue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d7x0g")
+}],
+"loop": false,
+"name": &"morrendo",
+"speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iaahx"]
-size = Vector2(138.666, 294.544)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d7x0g"]
+radius = 75.0
+height = 296.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klq5n"]
 size = Vector2(146, 289)
@@ -53,50 +74,47 @@ size = Vector2(146, 289)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8pes2"]
 size = Vector2(44.7993, 82.1753)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pwn1i"]
-size = Vector2(177.554, 308.207)
-
 [node name="inimigos" type="Node2D"]
-position = Vector2(1, -4)
+position = Vector2(2, -67)
 scale = Vector2(0.326661, 0.346298)
 metadata/_edit_group_ = true
 
-[node name="soldado" type="CharacterBody2D" parent="."]
-position = Vector2(-3.06128, -135.721)
+[node name="soldado" type="CharacterBody2D" parent="." groups=["inimigos"]]
+position = Vector2(-7.29866e-07, 0)
+collision_layer = 17
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_klq5n")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="soldado"]
+position = Vector2(18.3677, 0)
 sprite_frames = SubResource("SpriteFrames_0tcue")
-animation = &"andar"
+animation = &"morrendo"
 autoplay = "andar"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="soldado" groups=["inimigos"]]
-position = Vector2(1.98468, 11.5508)
-scale = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_iaahx")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="soldado"]
+position = Vector2(-1, 12)
+shape = SubResource("CapsuleShape2D_d7x0g")
+
+[node name="detector_parede" type="RayCast2D" parent="soldado"]
+exclude_parent = false
+target_position = Vector2(16, 50)
+
+[node name="detector_abismo" type="RayCast2D" parent="soldado"]
+exclude_parent = false
+target_position = Vector2(16, 500)
 
 [node name="Hurtbox" type="Area2D" parent="soldado" groups=["inimigos"]]
-visible = false
 collision_layer = 16
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="soldado/Hurtbox"]
-position = Vector2(6.12256, 14.4384)
+position = Vector2(-1, 11.5)
 shape = SubResource("RectangleShape2D_klq5n")
 
 [node name="HitboxDano" type="Area2D" parent="soldado"]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="soldado/HitboxDano"]
-visible = false
 position = Vector2(1.53063, 14.4384)
 scale = Vector2(3.34832, 3.65462)
 shape = SubResource("RectangleShape2D_8pes2")
-
-[node name="ZonaDeMorte" type="Area2D" parent="soldado" groups=["inimigos"]]
-
-[node name="hitboxpulodano" type="CollisionShape2D" parent="soldado/ZonaDeMorte" groups=["inimigos"]]
-position = Vector2(-3.06127, 10.4946)
-scale = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_pwn1i")

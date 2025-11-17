@@ -882,6 +882,7 @@ sources/1 = SubResource("TileSetAtlasSource_b676b")
 size = Vector2(2421, 20)
 
 [node name="Demofloresta" type="Node2D"]
+position = Vector2(31, 65)
 script = ExtResource("1_euhhy")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -895,10 +896,10 @@ layer_0/tile_data = PackedInt32Array(983057, 0, 21, 1114129, 65536, 22, 983058, 
 position = Vector2(600, 204)
 
 [node name="inimigos" parent="." instance=ExtResource("4_ncleg")]
-position = Vector2(1202, 287)
+position = Vector2(1220, 236)
 
 [node name="inimigos2" parent="." instance=ExtResource("4_ncleg")]
-position = Vector2(1648, 284)
+position = Vector2(1652, 243)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -906,10 +907,10 @@ position = Vector2(1648, 284)
 motion_mirroring = Vector2(640, 0)
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
-offset_left = -67.0
-offset_top = -400.0
-offset_right = 1601.0
-offset_bottom = 611.0
+offset_left = -64.0
+offset_top = -430.0
+offset_right = 1604.0
+offset_bottom = 581.0
 texture = ExtResource("5_5rnve")
 
 [node name="ZonaDeMorte" type="Area2D" parent="." groups=["inimigos"]]

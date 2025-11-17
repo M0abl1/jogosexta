@@ -101,8 +101,17 @@ func morrer():
 
 
 # --- Conexão de Sinal ---
-func _on_hitbox_ataque_area_entered(area):
-	if area.is_in_group("inimigos"):
-		# (O get_parent() ainda está correto, pois a 'area'
-		#  que entra é o Hurtbox, e o pai do Hurtbox é o 'solidado')
-		area.get_parent().levar_dano(1)
+#func _on_hitbox_ataque_area_entered(area):
+# --- Conexão de Sinal ---
+# (Conecte o sinal "body_entered" a esta função)
+func _on_hitbox_ataque_area_entered(body): # Mudei o nome do parâmetro para 'body'
+	
+	print("Hitbox acertou um CORPO: ", body.name)
+
+	# Precisamos checar se o corpo que acertamos é um inimigo
+	# (pois ele pode ter acertado o jogador ou o chão).
+	# A forma mais segura é checar se ele TEM a função "levar_dano".
+	if body.has_method("levar_dano"):
+		
+		# ✅ CORREÇÃO: Chamamos 'levar_dano' DIRETAMENTE no 'body'.
+		body.levar_dano(1)

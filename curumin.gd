@@ -3,7 +3,7 @@ extends CharacterBody2D
 # --- Constantes de Física ---
 const VELOCIDADE_ANDAR: float = 150.0
 const FORCA_PULO: float = -300.0
-const GRAVIDADE: float = 800.0
+const GRAVIDADE: float = 400.0
 
 # --- Variáveis de Estado ---
 var vida_max: int = 3

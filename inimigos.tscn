@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://xglyfkoqg2ou"]
+[gd_scene load_steps=14 format=3 uid="uid://xglyfkoqg2ou"]
 
 [ext_resource type="Script" uid="uid://cjy8dg6mewkky" path="res://soldado.gd" id="1_klq5n"]
 [ext_resource type="Texture2D" uid="uid://l4j0fjf215jt" path="res://assets/inimigos/soldado andando-Photoroom.png" id="2_8pes2"]
@@ -75,22 +75,22 @@ size = Vector2(146, 289)
 size = Vector2(44.7993, 82.1753)
 
 [node name="inimigos" type="Node2D"]
-position = Vector2(0, -56)
+position = Vector2(2, -67)
 scale = Vector2(0.326661, 0.346298)
 metadata/_edit_group_ = true
 
 [node name="soldado" type="CharacterBody2D" parent="." groups=["inimigos"]]
-collision_layer = 16
-collision_mask = 4
+position = Vector2(-7.29866e-07, 0)
+collision_layer = 17
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_klq5n")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="soldado"]
+position = Vector2(18.3677, 0)
 sprite_frames = SubResource("SpriteFrames_0tcue")
 animation = &"morrendo"
 autoplay = "andar"
-frame = 1
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="soldado"]
 position = Vector2(-1, 12)
